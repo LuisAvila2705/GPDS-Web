@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoLink - Inicio de Paciente</title>
+  <link rel="stylesheet" href="css\DashboardPaciente.css">
+</head>
+
+<body>  
+    
+<!-- Encabezado -->
+    <header>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="assets/logo.png" class="logo-img" alt="Logo">
+    </div>
+
+    <div class="user-menu-container">
+      <button class="user-menu-btn" onclick="toggleMenu()">☰</button>
+      <div class="user-dropdown oculto" id="userDropdown">
+        <a href="DashboardPacienteActualizar.html">Actualizar datos</a>
+        <a href="Index.html">Cerrar sesión</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+
+<!-- Info -->
+<div class="dashboard-panel">
+  <div class="perfil-paciente">
+    <img src="assets/paciente.PNG" alt="Paciente" class="avatar-paciente">
+    <div>
+      <h2>Bienvenido, <span id="nombrePaciente">Lol</span></h2>
+      <p class="subtitulo">Estamos aquí para cuidar de ti. 🩺</p>
+    </div>
+  </div>
+
+  <div class="dashboard-info">
+    <div class="cita-proxima">
+      <h3>Cambio</h3>
+      <form id="form-publicar">
+  <input name="titulo" id="titulo" placeholder="Título" required />
+  <textarea name="contenido" id="contenido" placeholder="Contenido" required></textarea>
+  <select name="categoria" id="categoria" required>
+    <option value="reciclaje">Reciclaje</option>
+    <option value="reforestacion">Reforestación</option>
+    <option value="salud">Salud</option>
+  </select>
+  <input type="file" id="media" name="media" accept="image/*,video/*" multiple />
+  <button type="submit">Publicar</button>
+  <p id="mensaje-publicar"></p>
+</form>
+
+<script type="module" src="js/firebaseClient.js"></script>
+<script type="module" src="js/publicarCloudinary.js"></script>
+
+    </div>
+
+    <div class="avisos">
+      <h3>Cambio</h3>
+      <ul>
+        <li>aa.</li>
+        <li>aa.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="dashboard-opciones">
+    <button onclick="location.href='DashboardPacienteAgendar.html'" class="dashboard-btn">Agendar Cita</button>
+    <button onclick="location.href='DashboardPacienteVerAgenda.html'" class="dashboard-btn">Ver Historial</button>
+  </div>
+</div>
+
+
+
+<section class="contacto">
+  <div class="contenedor-contacto">
+    <div class="info-contacto">
+      <h2>Contáctanos</h2>
+      <p>📍 UTSC, Ciudad de Santa Catarina, Nuevo Leon</p>
+      <p>📞 (52) 81 1234 5678</p>
+      <p>✉️ humbre.hospital@gmail.com</p>
+      <p>⏰ Siempre para ti</p>
+    </div>
+   
+  </div>
+</section>
+
+  <script src="js/DashboardCiudadano.js"></script>

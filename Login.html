@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Humble Hospital - Inicio De Sesión</title>
+  <!-- Usa / en rutas -->
+  <link rel="stylesheet" href="css/Login.css">
+</head>
+
+<body>
+  <!-- Encabezado -->
+  <header>
+    <nav class="navbar">
+      <div class="spacer"></div>
+      <div class="logo">
+        <a href="Index.html"><img src="assets/logo.png" class="logo-img" alt="Logo"></a>
+      </div>
+      <div class="spacer"></div>
+    </nav>
+  </header>
+
+  <!-- Ruta de navegación -->
+  <div class="breadcrumb">
+    <p><a href="Index.html">Inicio</a> > Acceder a mi cuenta</p>
+  </div>
+
+  <main>
+    <!-- Panel de acceso -->
+    <section class="login-panel">
+      <h2>Acceder a mi cuenta</h2>
+
+      <!-- Login básico (sin roles) -->
+      <form class="login-form" id="form-login">
+        <input id="correo" type="email" placeholder="Correo Electrónico" required>
+        <input id="password" type="password" placeholder="Contraseña" required>
+
+        <!-- Reset de contraseña: el JS enviará el correo si está escrito en el campo -->
+        <a href="#" id="link-reset">Olvidé mi contraseña</a>
+
+        <!-- Botón de envío (sin <a> dentro) -->
+        <button type="submit">Iniciar Sesión</button>
+
+        <p>¿Aún no tienes cuenta? <a href="CrearUsuario.html">Registrarme</a></p>
+
+        <!-- Mensajes de error/éxito -->
+        <p id="mensaje-login"></p>
+      </form>
+    </section>
+
+    <!-- Ventajas -->
+    <section class="benefits">
+      <h3>Regístrate y disfruta de estas ventajas</h3>
+
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <h4>🔍 Buscar un médico</h4>
+          <p class="benefit-description">
+            Encuentra especialistas sin necesidad de llamadas. Todo desde la plataforma.
+          </p>
+          <button class="toggle-btn" onclick="toggleBenefit(this)">Ver más</button>
+        </div>
+        <div class="benefit-item">
+          <h4>📅 Gestión de reservas</h4>
+          <p class="benefit-description">
+            Modifica o cancela tus citas en cualquier momento de forma sencilla.
+          </p>
+          <button class="toggle-btn" onclick="toggleBenefit(this)">Ver más</button>
+        </div>
+        <div class="benefit-item">
+          <h4>✏️ Actualiza tus datos</h4>
+          <p class="benefit-description">
+            Cambia tu información personal rápidamente desde tu perfil.
+          </p>
+          <button class="toggle-btn" onclick="toggleBenefit(this)">Ver más</button>
+        </div>
+        <div class="benefit-item">
+          <h4>🖱️ Citas en un clic</h4>
+          <p class="benefit-description">
+            Solicita nuevas citas de forma ágil con solo un par de clics.
+          </p>
+          <button class="toggle-btn" onclick="toggleBenefit(this)">Ver más</button>
+        </div>
+      </div>
+
+      <button class="crear-cuenta" onclick="location.href='CrearUsuario.html'">Crear mi cuenta</button>
+    </section>
+
+    <!-- Quiénes somos -->
+    <section class="quienes-somos">
+      <div class="contenido">
+        <div class="texto">
+          <h2>¿Quiénes somos?</h2>
+          <p>
+            Somos una plataforma dedicada a conectar a pacientes con profesionales de la salud de manera rápida y eficiente.
+            Nuestro objetivo es facilitar el acceso a atención médica de calidad desde la comodidad de tu hogar.
+          </p>
+        </div>
+        <div class="imagen">
+          <img src="assets/faq.png" alt="Nuestro equipo" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto">
+      <div class="contenedor-contacto">
+        <div class="info-contacto">
+          <h2>Contáctanos</h2>
+          <p>📍 UTSC, Ciudad de Santa Catarina, Nuevo Leon</p>
+          <p>📞 (52) 81 1234 5678</p>
+          <p>✉️ humbre.hospital@gmail.com</p>
+          <p>⏰ Siempre para ti</p>
+        </div>
+        <div class="formulario-contacto">
+          <h3>¿Tienes dudas?</h3>
+          <form>
+            <input type="text" placeholder="Tu nombre" required />
+            <input type="email" placeholder="Tu correo" required />
+            <textarea placeholder="Tu mensaje" rows="4"></textarea>
+            <button type="submit">Enviar mensaje</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Scripts: primero Firebase, luego tu lógica de login -->
+  <script type="module" src="js/firebaseClient.js"></script>
+  <script type="module" src="js/LoginFirebase.js"></script>
+
+  <!-- Helper UI para el "Ver más/Ver menos" (evita errores si no tienes ui.js) -->
+  <script>
+    window.toggleBenefit = function(button) {
+      const item = button.closest('.benefit-item');
+      if (!item) return;
+
+      const isExpanded = item.classList.contains('expanded');
+
+      // Contrae los demás
+      document.querySelectorAll('.benefit-item.expanded').forEach(i => {
+        i.classList.remove('expanded');
+        const btn = i.querySelector('.toggle-btn');
+        if (btn) btn.textContent = 'Ver más';
+      });
+
+      // Expande el actual si no lo estaba
+      if (!isExpanded) {
+        item.classList.add('expanded');
+        button.textContent = 'Ver menos';
+      }
+    };
+  </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoLink - Crear Cuenta de Ciudadano</title>
+  <link rel="stylesheet" href="css/CrearUsuario.css">
+</head>
+
+<body>
+
+  <!-- Encabezado -->
+  <header>
+    <nav class="navbar">
+      <div class="spacer"></div>
+      <div class="logo">
+        <a href="Index.html">
+          <img src="assets/logo.png" class="logo-img" alt="Logo Humble Hospital">
+        </a>
+      </div>
+      <div class="spacer"></div>
+    </nav>
+  </header>
+
+  <!-- Ruta de navegación -->
+  <nav class="breadcrumb">
+    <a href="Index.html">Inicio</a> &gt;
+    <a href="login.html">Acceder a mi cuenta</a> &gt;
+    <span>Crear cuenta de Ciudadano</span>
+  </nav>
+
+  <!-- Formulario -->
+  <section class="formulario-creacion">
+    <h2>Registrarse Como Ciudadano</h2>
+
+    <form class="registro-form" id="registroForm">
+      <label class="subtitulo">Datos Personales:</label>
+
+      <input
+        name="nombre"
+        type="text"
+        placeholder="Nombres"
+        pattern="^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,50}$"
+        title="Solo letras, entre 2 y 50 caracteres"
+        required
+      >
+
+      <input
+        name="apellido"
+        type="text"
+        placeholder="Apellidos"
+        pattern="^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,50}$"
+        title="Solo letras, entre 2 y 50 caracteres"
+        required
+      >
+
+      <input
+        name="telefono"
+        type="tel"
+        placeholder="Teléfono"
+        pattern="^[0-9]{10}$"
+        title="Debe tener exactamente 10 dígitos"
+        required
+      >
+      <small>Te enviaremos un SMS para confirmar tu solicitud de cita</small>
+
+      <input
+        type="email"
+        name="correo"
+        placeholder="Correo Electrónico"
+        required
+      >
+
+      <input
+        type="email"
+        name="correoConfirm"
+        placeholder="Repetir Correo"
+        required
+      >
+
+      <small>
+        La contraseña debe tener al menos 8 caracteres, una mayúscula, una
+        minúscula, un número y un carácter especial.
+      </small>
+      <input
+        type="password"
+        name="contraseña"
+        placeholder="Crea tu contraseña"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
+        title="Mínimo 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial"
+        required
+      >
+      <small id="errorPassword" style="color:red; display:none;"></small>
+      <small>Lo usaremos para contactarte en caso de que sea necesario</small>
+
+      <input
+        type="text"
+        name="direccion"
+        placeholder="Dirección"
+        minlength="5"
+        maxlength="100"
+      >
+
+      <label class="subtitulo" for="fechaNacimiento">Fecha de Nacimiento</label>
+      <input
+        name="FechaNacimiento"
+        type="date"
+        class="input-fecha"
+        id="fechaNacimiento"
+        min="1930-01-01"
+        required
+      >
+      <small id="edadMensaje" style="display:block; margin-bottom:10px;"></small>
+
+      <label class="subtitulo">Datos Físicos:</label>
+      <div class="genero">
+        <label>
+          <input type="radio" name="genero" value="masculino" required> Masculino
+        </label>
+        <label>
+          <input type="radio" name="genero" value="femenino" required> Femenino
+        </label>
+      </div>
+
+      <label class="terminos">
+        <input type="checkbox" id="confirmMayor" name="confirmMayor">
+        Confirmo que soy mayor de 18 años, además de aceptar la política de
+        privacidad junto con los términos y condiciones de uso.
+      </label>
+
+      <!-- Campo oculto para enviar el estado real de confirmMayor -->
+      <input type="hidden" name="confirmMayorHidden" id="confirmMayorHidden" value="false">
+
+      <button type="submit" class="btn-crear-cuenta" id="submitBtn" disabled>
+        Crear Mi Cuenta
+      </button>
+    </form>
+  </section>
+
+  <script src="js/RegisterFirebase.js"></script>
+</body>
+
+</html>

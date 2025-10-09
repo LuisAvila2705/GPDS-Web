@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoLink - Inicio</title>
+  <link rel="stylesheet" href="css\Inicio.css">
+</head>
+
+
+<body>
+
+
+  <!-- Encabezado -->
+    <header>
+      <nav class="navbar">
+      <div class="logo"> <img src="assets/logo.png" class="logo-img"> </div>
+
+ 
+        <button class="login-button" onclick="window.location.href='Login.html'">Iniciar Sesión</button>
+    </div>
+    </header>
+
+  
+    <!-- Ruta de Pagina -->
+  <nav class="breadcrumb"> <a href="Index.html  ">Inicio</a> &gt; </nav>
+
+
+  <main>
+
+  <!-- Proceso de como reservar -->
+    <section class="hero">
+      <h1>Mejoremos el entorno de nuestra vida</h1>
+      <p>Cada accion tuya mejorara la calidad de nuestra sociedad</p>
+      <div class="steps-container">
+  <div class="step">
+    <div class="step-icon">🔍</div>
+    <div class="step-number">1</div>
+    <div class="step-title">AMBIENTALES</div>
+  </div>
+  <div class="step">
+    <div class="step-icon">👨‍👨‍👧‍👧</div>
+    <div class="step-number">2</div>
+    <div class="step-title">SOCIALES</div>
+  </div>
+  <div class="step">
+    <div class="step-icon">📖</div>
+    <div class="step-number">3</div>
+    <div class="step-title">EDUCATIVAS</div>
+  </div>
+  <div class="step">
+    <div class="step-icon">💸</div>
+    <div class="step-number">4</div>
+    <div class="step-title">ECONOMICAS</div>
+  </div>
+</div>
+    </section>
+
+
+      <!-- Dato estadistico -->
+  <div class="tabs">
+    <button class="tab-btn" data-type="doctor">Objetivo</button>
+    <button class="tab-btn" data-type="center">Mision</button>
+    <button class="tab-btn" data-type="specialty">Vision</button>
+  </div>
+
+    <section class="stats" id="stats">
+      <div class="stat-circle" id="percentage">
+      <span>Conocenos</span>
+      </div>
+        <p class="stats-text" id="statsText"> Escoge un dato </p>
+    </section>
+
+      
+      <!-- Como contactar tras agendar -->
+      <section class="contact-section">
+    
+      <h2>¿Como Puedo Contactarme Con Un Administrador?</h2>
+
+  <div class="contact-step">
+    <h3>📧 Correo Electrónico</h3>
+    <p>Recibirás un correo con los datos del adminstrador y enlace de contacto.</p>
+  </div>
+
+  <div class="contact-step">
+    <h3>📞 Llamada Telefónica</h3>
+    <p>Si el adminstrador comienza el contacto te dara un numero telefonico para contacto directo.</p>
+  </div>
+
+        </section>
+
+
+      <!-- Preguntas FAQ -->
+<section class="faq-section">
+    <h2>Preguntas Frecuentes</h2>
+
+      <!-- FAQ1 -->
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">
+      <span>1️⃣ ¿Cómo puedo registrar mis acciones comunitarias en la plataforma?</span>
+      <span class="faq-icon">➕</span>
+    </div>
+    <div class="faq-answer">
+Al iniciar sesión, dirígete al menú “Registrar acción”. Ahí podrás seleccionar el tipo de actividad (limpieza, reciclaje, taller, donación, etc.), completar los datos solicitados y adjuntar evidencias como fotos, videos o ubicación. Una vez guardada, tu acción quedará registrada y se sumará al impacto colectivo de tu comunidad.    </div>
+  </div>
+
+        <!-- FAQ2 -->
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">
+      <span>2️⃣ ¿Dónde puedo ver el impacto de las acciones realizadas por mi comunidad?</span>
+      <span class="faq-icon">➕</span>
+    </div>
+    <div class="faq-answer">
+En la sección “Impacto en tiempo real” puedes visualizar un mapa o panel de métricas que muestra todas las acciones registradas por los ciudadanos y organizaciones de tu zona. Podrás ver estadísticas, avances y resultados del esfuerzo colectivo.    </div>
+  </div>
+
+        <!-- FAQ3 -->
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFAQ(this)">
+      <span>3️⃣ ¿Qué beneficios obtengo al participar y registrar mis actividades?</span>
+      <span class="faq-icon">➕</span>
+    </div>
+    <div class="faq-answer">
+Además de contribuir al desarrollo sostenible y la transparencia, la plataforma te permite participar en retos comunitarios, recibir reconocimientos digitales por tus aportaciones, conectarte con otras personas u organizaciones y dar visibilidad a tus proyectos.    </div>
+  </div>
+
+</section>
+
+
+      <!-- Quienes  Somos -->
+    <section class="quienes-somos">
+  <div class="contenido">
+    <div class="texto">
+      <h2>¿Quiénes somos?</h2>
+      <p>
+        Somos una comunidad que se hace expresar mediante nuestra plataforma digital acciones que los ciudadanos realizan para el apoyo hacia la comunidad.
+      </p>
+    </div>
+    <div class="imagen">
+      <img src="assets/fak.png" alt="Nuestro equipo" />
+    </div>
+  </div>
+</section>
+
+
+      <!-- Contacto -->
+<section class="contacto">
+  <div class="contenedor-contacto">
+    <div class="info-contacto">
+      <h2>Contáctanos</h2>
+      <p>📍 UTSC, Ciudad de Santa Catarina, Nuevo Leon</p>
+      <p>📞 (52) 81 1234 5678</p>
+      <p>⏰ Siempre para ti</p>
+    </div>
+  </div>
+</section>
+
+    <script src="js/homeFirebase.js"></script>
+
+  </main>
+</body>
+</html> 
