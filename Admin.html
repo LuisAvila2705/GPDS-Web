@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>EcoLink — Panel de Administración</title>
+
+  <!-- Estilos del panel -->
+  <link rel="stylesheet" href="/css/Admin.css" />
+</head>
+<body>
+
+  <!-- Encabezado simple -->
+  <header class="card" style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px auto;max-width:1150px;padding:14px 18px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img src="/assets/logo.png" alt="EcoLink" style="width:28px;height:28px;border-radius:6px" />
+      <h1 style="margin:0;font-size:1.2rem;color:#0d9488;">Panel de Administración</h1>
+    </div>
+    <a href="/DashboardPrincipal.html" class="toolbar-btn" style="text-decoration:none;background:#0d9488;color:#fff;padding:6px 12px;border-radius:8px;">Ciudadanos</a>
+  </header>
+
+  <main>
+    <!-- Filtros / búsqueda -->
+    <section class="card" style="margin-bottom:14px;">
+      <div class="toolbar" role="search">
+        <label for="q" class="sr-only">Buscar por nombre o correo</label>
+        <input id="q" type="search" placeholder="Buscar por nombre o correo" autocomplete="off" />
+
+        <label for="rolSel" class="sr-only">Rol</label>
+        <select id="rolSel" title="Rol">
+          <option value="">Rol: todos</option>
+          <option value="ciudadano">Ciudadano</option>
+          <option value="organizacion">Organización</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <label for="mun" class="sr-only">Municipio</label>
+
+        
+  <select id="munSel">
+  <option value="">Municipio (todos)</option>
+  <option>Abasolo</option>
+  <option>Agualeguas</option>
+  <option>Los Aldamas</option>
+  <option>Allende</option>
+  <option>Anáhuac</option>
+  <option>Apodaca</option>
+  <option>Aramberri</option>
+  <option>Bustamante</option>
+  <option>Cadereyta Jiménez</option>
+  <option>El Carmen</option>
+  <option>Cerralvo</option>
+  <option>China</option>
+  <option>Ciénega de Flores</option>
+  <option>Doctor Arroyo</option>
+  <option>Doctor Coss</option>
+  <option>Doctor González</option>
+  <option>Galeana</option>
+  <option>García</option>
+  <option>San Pedro Garza García</option>
+  <option>General Bravo</option>
+  <option>General Escobedo</option>
+  <option>General Terán</option>
+  <option>General Treviño</option>
+  <option>General Zaragoza</option>
+  <option>General Zuazua</option>
+  <option>Guadalupe</option>
+  <option>Los Herreras</option>
+  <option>Higueras</option>
+  <option>Hidalgo</option>
+  <option>Hualahuises</option>
+  <option>Iturbide</option>
+  <option>Juárez</option>
+  <option>Lampazos de Naranjo</option>
+  <option>Linares</option>
+  <option>Marín</option>
+  <option>Melchor Ocampo</option>
+  <option>Mier y Noriega</option>
+  <option>Mina</option>
+  <option>Montemorelos</option>
+  <option>Monterrey</option>
+  <option>Parás</option>
+  <option>Pesquería</option>
+  <option>Los Ramones</option>
+  <option>Rayones</option>
+  <option>Sabinas Hidalgo</option>
+  <option>Salinas Victoria</option>
+  <option>San Nicolás de los Garza</option>
+  <option>Santa Catarina</option>
+  <option>Santiago</option>
+  <option>Vallecillo</option>
+  <option>Villaldama</option>
+  </select>
+
+      </div>
+
+    </section>
+
+    <!-- Tabla de usuarios -->
+    <section class="card" aria-labelledby="titulo-usuarios">
+      <h2 id="titulo-usuarios">Usuarios</h2>
+
+      
+
+      <div class="table-wrap" role="region" aria-live="polite" aria-busy="false">
+        <table aria-label="Usuarios">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Rol</th>
+              <th scope="col">Municipio</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Últ. conexión</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="tblUsers">
+            <!-- filas generadas por JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginador inferior (tus IDs que usa admin.js) -->
+      <div class="pager">
+        <button id="btnPrev" disabled>◀ Anterior</button>
+        <button id="btnNext" disabled>Siguiente ▶</button>
+      </div>
+    </section>
+
+    <!-- Notas -->
+    <section class="card" style="margin-top:14px;">
+      <h2>Notas</h2>
+      <ul class="muted">
+        <li>Al cambiar el <strong>rol</strong> se actualiza <code>/usuarios/{uid}.rol</code>. Tu app ya usa ese valor (guard en UI).</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- Toast (opcional, para feedback rápido) -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Script del panel -->
+  <script type="module" src="/js/adminPanel.js"></script>
+
+  <!-- Utilidad de accesibilidad: oculto visual pero legible por screen readers -->
+  <style>
+    .sr-only {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+    .toolbar-btn { font: inherit; }
+  </style>
+</body>
+</html>

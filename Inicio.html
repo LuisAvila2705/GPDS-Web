@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#177e69" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoLink - Inicio</title>
+
+  <!-- RUTA ABSOLUTA + slash correcto -->
+  <link rel="stylesheet" href="/css/Inicio.css" />
+
+  <!-- Carga de script principal del home -->
+  <script type="module" src="/js/E_Inicio.js" defer></script>
+</head>
+
+<body>
+  <!-- Encabezado -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <img src="/assets/logo.png" class="logo-img" alt="EcoLink Logo" />
+      </div>
+      <button class="login-button" onclick="window.location.href='/login.html'">
+        Iniciar Sesión
+      </button>
+    </nav>
+  </header>
+
+  <!-- Ruta de Página -->
+  <nav class="breadcrumb">
+    <a href="/Inicio.html">Inicio</a> &gt;
+  </nav>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <h1>Mejoremos el entorno de nuestra vida</h1>
+      <p>Cada acción tuya mejorará la calidad de nuestra sociedad</p>
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-icon">🔍</div>
+          <div class="step-number">1</div>
+          <div class="step-title">AMBIENTALES</div>
+        </div>
+        <div class="step">
+          <div class="step-icon">👨‍👨‍👧‍👧</div>
+          <div class="step-number">2</div>
+          <div class="step-title">SOCIALES</div>
+        </div>
+        <div class="step">
+          <div class="step-icon">📖</div>
+          <div class="step-number">3</div>
+          <div class="step-title">EDUCATIVAS</div>
+        </div>
+        <div class="step">
+          <div class="step-icon">💸</div>
+          <div class="step-number">4</div>
+          <div class="step-title">ECONÓMICAS</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-btn" data-type="doctor">Objetivo</button>
+      <button class="tab-btn" data-type="center">Misión</button>
+      <button class="tab-btn" data-type="specialty">Visión</button>
+    </div>
+
+    <section class="stats" id="stats">
+      <div class="stat-circle" id="percentage">
+        <span>Conócenos</span>
+      </div>
+      <p class="stats-text" id="statsText">Escoge un dato</p>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contact-section">
+      <h2>¿Cómo puedo contactarme con un administrador?</h2>
+
+      <div class="contact-step">
+        <h3>📧 Correo Electrónico</h3>
+        <p>Recibirás un correo con los datos del administrador y enlace de contacto.</p>
+      </div>
+
+      <div class="contact-step">
+        <h3>📞 Llamada Telefónica</h3>
+        <p>Si el administrador inicia el contacto, te dará un número telefónico para contacto directo.</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+      <h2>Preguntas Frecuentes</h2>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span>1️⃣ ¿Cómo puedo registrar mis acciones comunitarias en la plataforma?</span>
+          <span class="faq-icon">➕</span>
+        </div>
+        <div class="faq-answer">
+          Tras haber iniciado sesión se mostrará la interfaz principal con el recuadro "Comparte tu acción a la sociedad". 
+          Al completarlo podrás compartir tu aportación para que los demás la vean.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span>2️⃣ ¿Dónde puedo ver el impacto de las acciones realizadas por mi comunidad?</span>
+          <span class="faq-icon">➕</span>
+        </div>
+        <div class="faq-answer">
+          En la sección “Impacto en tiempo real” podrás visualizar un mapa o panel de métricas con todas las acciones 
+          registradas en tu zona, con estadísticas y avances del esfuerzo colectivo.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+          <span>3️⃣ ¿Qué beneficios obtengo al participar y registrar mis actividades?</span>
+          <span class="faq-icon">➕</span>
+        </div>
+        <div class="faq-answer">
+          Además de contribuir al desarrollo sostenible, recibirás reconocimientos digitales por tus aportaciones, 
+          podrás conectarte con otras personas y dar visibilidad a tus proyectos.
+        </div>
+      </div>
+    </section>
+
+    <!-- Quiénes Somos -->
+    <section class="quienes-somos">
+      <div class="contenido">
+        <div class="texto">
+          <h2>¿Quiénes somos?</h2>
+          <p>
+            Somos una comunidad que busca expresar, mediante nuestra plataforma digital, las acciones 
+            que los ciudadanos realizan en apoyo a la comunidad.
+          </p>
+        </div>
+        <div class="imagen">
+          <img src="/assets/fak.png" alt="Nuestro equipo" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Contacto -->
+    <section class="contacto">
+      <div class="contenedor-contacto">
+        <div class="info-contacto">
+          <h2>Contáctanos</h2>
+          <p>📍 UTSC, Ciudad de Santa Catarina, Nuevo León</p>
+          <p>📞 (52) 81 1234 5678</p>
+          <p>⏰ Siempre para ti</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Registro del Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/serviceWorker.js')
+          .then(reg => console.log('SW registrado', reg.scope))
+          .catch(err => console.error('Error SW', err));
+      });
+    }
+  </script>
+</body>
+</html>

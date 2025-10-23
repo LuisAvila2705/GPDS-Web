@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#177e69" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoLink - Iniciar Sesión</title>
+
+  <!-- RUTA ABSOLUTA -->
+  <link rel="stylesheet" href="/css/Login.css"/>
+
+  <!-- Importante: que Login.js sea módulo -->
+  <script type="module" src="/js/Login.js" defer></script>
+</head>
+<body>
+  <!-- Encabezado -->
+  <header>
+    <nav class="navbar">
+      <div class="spacer"></div>
+      <div class="logo">
+        <!-- RUTA ABSOLUTA -->
+        <a href="/Inicio.html"><img src="/assets/logo.png" class="logo-img" alt="EcoLink Logo"/></a>
+      </div>
+      <div class="spacer"></div>
+    </nav>
+  </header>
+
+  <!-- Ruta de navegación -->
+  <div class="breadcrumb">
+    <!-- RUTA ABSOLUTA -->
+    <p><a href="/Inicio.html">Inicio</a> > Iniciar sesión</p>
+  </div>
+
+  <main>
+    <!-- Panel de acceso -->
+    <section class="login-panel">
+      <h2>Acceder a mi cuenta</h2>
+
+      <!-- Formulario -->
+      <form class="login-form" id="login-form" novalidate>
+        <input type="email" id="email" placeholder="Correo electrónico" autocomplete="email" required />
+        <input type="password" id="password" placeholder="Contraseña" autocomplete="current-password" required minlength="6"/>
+        <!--  RUTA ABSOLUTA -->
+        <a href="/RecuperarUsuario.html">Olvidé mi contraseña</a>
+        <button type="submit" id="btnLogin">Iniciar Sesión</button>
+
+        <!-- contenedor de mensajes -->
+        <p id="msg" role="status" aria-live="polite"></p>
+
+        <p>¿Aún no tienes cuenta? <a href="/CrearUsuario.html">Regístrate</a></p>
+      </form>
+    </section>
+
+    <!-- Ventajas -->
+    <section class="benefits">
+      <h3>Regístrate y disfruta de estas ventajas</h3>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <h4>🌱 Registrar acciones</h4>
+          <p class="benefit-description">Documenta tus actividades comunitarias y haz visible su impacto.</p>
+          <button class="toggle-btn" data-target="benefit-1">Ver más</button>
+        </div>
+        <div class="benefit-item">
+          <h4>🤝 Conectar con organizaciones</h4>
+          <p class="benefit-description">Únete a iniciativas y crea redes colaborativas fácilmente.</p>
+          <button class="toggle-btn" data-target="benefit-2">Ver más</button>
+        </div>
+        <div class="benefit-item">
+          <h4>✏️ Actualiza tus datos</h4>
+          <p class="benefit-description">Mantén tu perfil e información siempre al día.</p>
+          <button class="toggle-btn" data-target="benefit-3">Ver más</button>
+        </div>
+        <div class="benefit-item">
+          <h4>📊 Impacto en tiempo real</h4>
+          <p class="benefit-description">Consulta estadísticas de tu participación y la de otros usuarios.</p>
+          <button class="toggle-btn" data-target="benefit-4">Ver más</button>
+        </div>
+      </div>
+
+      <!-- RUTA ABSOLUTA -->
+      <button class="crear-cuenta" onclick="location.href='/CrearUsuario.html'">Crear mi cuenta</button>
+    </section>
+  </main>
+
+  <!-- Script extra de la página -->
+  <script src="/js/E_Login.js" defer></script>
+
+  <!-- Registro del Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/serviceWorker.js')
+          .then(reg => console.log('SW registrado', reg.scope))
+          .catch(err => console.error('Error SW', err));
+      });
+    }
+  </script>
+</body>
+</html>

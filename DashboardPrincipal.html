@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Habilita instalación/metadata de la PWA -->
+  <link rel="manifest" href="/manifest.json" />
+  <!-- Color de la barra del navegador en móviles -->
+  <meta name="theme-color" content="#177e69" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoLink - Inicio de ciudadano</title>
+
+  <!-- Importante: RUTAS ABSOLUTAS. El SW y el host simple lo esperan así -->
+  <link rel="stylesheet" href="/css/DashboardPrincipal.css" />
+</head>
+
+<body>
+  <!-- ========= NAVBAR / HEADER ========= -->
+  <header class="navbar">
+    <div class="navbar-left">
+      <!-- Logo local (cacheable por SW) -->
+      <img src="/assets/logo.png" alt="EcoLink logo" class="logo-img" />
+      <span class="app-title">EcoLink</span>
+    </div>
+
+    <div class="navbar-right">
+      <!-- Botón que abre/cierra el menú del usuario -->
+      <button class="user-menu-btn" onclick="toggleMenu()">☰</button>
+      <!-- Dropdown simple con acciones de la sesión -->
+      <div class="user-dropdown oculto" id="userDropdown">
+        <a href="/DashboardPacienteActualizar.html">Actualizar datos</a>
+        <a href="#" id="logoutLink">Cerrar sesión</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========= CONTENEDOR PRINCIPAL ========= -->
+  <div class="dashboard-panel">
+    <!-- Saludo + subtítulo -->
+    <div class="perfil-paciente">
+      <div>
+        <!-- El nombre se rellena con JS al autenticar -->
+        <h2>Bienvenido, <span id="nombrePaciente">Usuario</span></h2>
+        <p class="subtitulo">Difundamos el bienestar.</p>
+      </div>
+    </div>
+
+    <!-- ===== Composer MINIMAL (para invitar a publicar) ===== -->
+    <section class="composer-mini card" id="composerMini">
+      <!-- avatar del usuario (se asigna tras login) -->
+      <img class="avatar" id="miniAvatar" alt="avatar" />
+      <!-- botón que abre el modal con el composer completo -->
+      <button class="open-composer" id="openComposer">
+        ¡Comparte tu acción a la sociedad, <span id="nombreCorto">Usuario</span>!
+      </button>
+      <!-- atajo para subir medios desde el mini -->
+      <div class="mini-actions">
+        <button class="mini-btn" id="miniFoto">📷 Foto/Video</button>
+      </div>
+    </section>
+
+    <!-- ===== MODAL con el composer completo ===== -->
+    <div class="modal oculto" id="composerModal" aria-hidden="true">
+      <!-- fondo para cerrar al hacer click -->
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+
+      <!-- tarjeta del modal accesible -->
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="composerTitle">
+        <div class="modal-header">
+          <h3 id="composerTitle">Crear publicación</h3>
+
+          <!-- datos visibles del usuario que publicará -->
+          <div class="user-meta">
+            <img id="modalAvatar" class="avatar" src="/assets/fak.png" alt="avatar del usuario" />
+            <div class="who">
+              <strong id="nombreCortoModal">Usuario</strong>
+              <div class="subtitulo">Listo para compartir</div>
+            </div>
+          </div>
+
+          <!-- cierra el modal -->
+          <button class="modal-close" id="closeComposer" aria-label="Cerrar">✕</button>
+        </div>
+
+        <!-- ===== Formulario de publicación ===== -->
+        <section class="composer">
+          <div class="form-row">
+            <!-- descripción obligatoria (500 máx) -->
+            <textarea id="desc" maxlength="500" placeholder="Describe tu acción…" required></textarea>
+
+            <!-- categoría normalizada (se guarda en minúsculas) -->
+            <select id="categoria" aria-label="Categoría">
+              <option value="limpieza">Limpieza</option>
+              <option value="reciclaje">Reciclaje</option>
+              <option value="taller">Taller</option>
+              <option value="donacion">Donación</option>
+            </select>
+
+            <!-- zona/ciudad libre (texto) -->
+            <input type="text" id="zona" placeholder="Zona o ciudad (opcional)" />
+          </div>
+
+          <!-- selector de imágenes (hasta 4). Se previsualizan abajo -->
+          <div class="file">
+            <input class="input-file" type="file" id="files" accept="image/*" multiple />
+            <label for="files" class="fake">📷 Elegir imágenes</label>
+            <span class="hint" id="hintFiles">Hasta 4 imágenes (JPG/PNG/WEBP)</span>
+            <!-- contador en vivo de caracteres -->
+            <span class="hint" id="charCount">0/500</span>
+          </div>
+
+          <!-- aquí se pintan miniaturas de las imágenes seleccionadas -->
+          <div id="preview" class="preview"></div>
+
+          <!-- publicar -->
+          <div style="margin-top:10px;display:flex;gap:10px;justify-content:flex-end">
+            <button id="btnPublicar" class="btn">Publicar</button>
+          </div>
+          <!-- mensajes de éxito/error de publicación -->
+          <p id="pubMsg"></p>
+        </section>
+      </div>
+    </div>
+
+    <!-- ===== FILTROS del FEED (categoría + búsqueda por texto) ===== -->
+    <section class="feed-toolbar card" style="display:flex;gap:10px;align-items:center;justify-content:space-between;margin:16px 0;">
+      <div style="display:flex;gap:8px;align-items:center;">
+        <label for="fCat" style="font-weight:600;">Categoría:</label>
+        <select id="categorySelect">
+          <option value="todas">Todas</option>
+          <option value="limpieza">Limpieza</option>
+          <option value="reciclaje">Reciclaje</option>
+          <option value="taller">Taller</option>
+          <option value="donacion">Donación</option>
+        </select>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center;">
+        <!-- búsqueda client-side sobre el cache del feed -->
+        <input id="searchInput" type="search" placeholder="Buscar en descripciones…" style="min-width:220px;">
+      </div>
+    </section>
+
+    <!-- ===== FEED de publicaciones ===== -->
+    <section id="feed" class="feed"></section>
+  </div>
+
+  <!-- ========= PIE / CONTACTO ========= -->
+  <section class="contacto">
+    <div class="contenedor-contacto">
+      <div class="info-contacto">
+        <h2>Contáctanos</h2>
+        <p>📍 UTSC, Ciudad de Santa Catarina, Nuevo León</p>
+        <p>📞 (52) 81 1234 5678</p>
+        <p>⏰ Siempre para ti</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alerta visual para logout correcto -->
+  <div id="logout-alert" class="logout-alert oculto" role="status" aria-live="polite">
+    Sesión cerrada correctamente.
+  </div>
+
+  <!-- ========= REGISTRO DEL SERVICE WORKER =========
+       Gestiona caché y modo offline (PWA). No afecta a Firebase Auth. -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/serviceWorker.js')
+          .then(reg => console.log('SW registrado', reg.scope))
+          .catch(err => console.error('Error SW', err));
+      });
+    }
+  </script>
+
+  <!-- ========= LÓGICA PRINCIPAL (Módulo ES) ========= -->
+<script type="module">
+  /**
+   * Este script controla:
+   * - Guard de sesión (redirige al login si no hay usuario).
+   * - Carga/actualización del perfil en UI.
+   * - Publicación de acciones (con subida de imágenes a Cloudinary).
+   * - Suscripción en tiempo real al feed (onSnapshot) y filtros en memoria.
+   * - Reacciones (like) con subcolección /reacciones.
+   */
+
+  // ===== Imports (Firebase + helpers propios) =====
+  import { auth, db } from "/js/firebase.js";
+  import { uploadImages, thumb } from "/js/uploaderCloudinary.js";
+  import {
+    addDoc, collection, serverTimestamp, doc, getDoc, setDoc, updateDoc,
+    query, orderBy, limit, onSnapshot,     // onSnapshot = tiempo real
+    getCountFromServer, deleteDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  // ===== Shorthand de selección =====
+  const $ = (s) => document.querySelector(s);
+
+  // --- Referencias de UI relacionadas a sesión ---
+  const spanNombre   = $("#nombrePaciente");
+  const userDropdown = $("#userDropdown");
+  const logoutAlert  = $("#logout-alert");
+  const logoutLink   = $("#logoutLink");
+  // Menú de usuario en navbar
+  window.toggleMenu  = () => userDropdown?.classList.toggle("oculto");
+
+  // --- Filtros de feed ---
+  const categorySelect = document.getElementById("categorySelect");
+  const searchInput    = document.getElementById("searchInput");
+
+  // --- Refs del modal/composer ---
+  const openComposer = $("#openComposer");
+  const miniFoto     = $("#miniFoto");
+  const modal        = $("#composerModal");
+  const backdrop     = $("#modalBackdrop");
+  const closeBtn     = $("#closeComposer");
+  const nombreCorto  = $("#nombreCorto");
+  const miniAvatar   = $("#miniAvatar");
+
+  // --- Refs del formulario del composer ---
+  const btn         = $("#btnPublicar");
+  const msg         = $("#pubMsg");
+  const descEl      = $("#desc");
+  const catEl       = $("#categoria");
+  const zonaEl      = $("#zona");
+  const fileInput   = $("#files");
+  const preview     = $("#preview");
+  const hintFiles   = $("#hintFiles");
+  const charCount   = $("#charCount");
+  const feedEl      = $("#feed");
+
+  // ===== Utilidades de normalización (para filtros/búsqueda) =====
+  const stripAccents = (s) => (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const norm = (s) => stripAccents(String(s || "").toLowerCase().trim());
+
+  // ===== Estado de feed en memoria (para filtrar sin reconsultar) =====
+  let FEED_CACHE = [];     // array de posts obtenidos por onSnapshot
+  let stopFeed = null;     // función para desuscribirse si fuera necesario
+
+  // ===== Skeletons (placeholder de carga) =====
+  function showSkeletons(n = 4) {
+    if (!feedEl) return;
+    feedEl.innerHTML = "";
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement("div");
+      s.className = "skeleton-card";
+      feedEl.appendChild(s);
+    }
+  }
+
+  // ====== GUARD + PERFIL ======
+  let isLoggingOut = false;
+
+  /**
+   * Crea o actualiza el documento /usuarios/{uid}:
+   * - Se crea si nunca antes se inició sesión con ese usuario.
+   * - Se actualiza la última conexión cuando entra.
+   * Nota: Seguridad real se define en las Reglas y/o Functions (no en el cliente).
+   */
+  async function ensureUserDoc(user) {
+    const ref = doc(db, "usuarios", user.uid);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) {
+      await setDoc(ref, {
+        uid: user.uid,
+        email: user.email,
+        nombre: user.displayName || "Usuario",
+        rol: "ciudadano",           // rol base
+        organizacion: null,
+        telefono: null,
+        ciudad: null,
+        fotoPerfil: null,
+        creadoEl: serverTimestamp(),
+        ultimaConexion: serverTimestamp(),
+        estadoCuenta: "activo",
+      });
+      return (await getDoc(ref)).data();
+    } else {
+      await updateDoc(ref, { ultimaConexion: serverTimestamp() });
+      return snap.data();
+    }
+  }
+
+  // Observa el estado de autenticación (guard)
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      // Si veníamos de "Cerrar sesión", muestra toast bonito y luego redirige
+      if (isLoggingOut && logoutAlert) {
+        logoutAlert.classList.remove("oculto");
+        requestAnimationFrame(() => logoutAlert.classList.add("visible"));
+        setTimeout(() => {
+          logoutAlert.classList.remove("visible");
+          setTimeout(() => { logoutAlert.classList.add("oculto"); window.location.href = "/login.html"; }, 350);
+        }, 2200);
+      } else {
+        // Acceso directo sin sesión → al login
+        window.location.href = "/login.html";
+      }
+      return;
+    }
+
+    // Con sesión activa: carga perfil y arranca el feed
+    try {
+      const perfil = await ensureUserDoc(user);
+
+      // Rellena la UI con datos del perfil (con fallback)
+      const nombre = perfil?.nombre || user.displayName || user.email || "Usuario";
+      const avatarUrl = perfil?.fotoPerfil || user.photoURL || "/assets/paciente.PNG";
+
+      const spanNombreEl     = document.getElementById("nombrePaciente");
+      const nombreCortoEl    = document.getElementById("nombreCorto");
+      const nombreCortoModal = document.getElementById("nombreCortoModal");
+      const miniAvatarEl     = document.getElementById("miniAvatar");
+      const modalAvatar      = document.getElementById("modalAvatar");
+
+      if (spanNombreEl)     spanNombreEl.textContent = nombre;
+      if (nombreCortoEl)    nombreCortoEl.textContent = nombre;
+      if (nombreCortoModal) nombreCortoModal.textContent = nombre;
+
+      if (miniAvatarEl) { miniAvatarEl.src = avatarUrl; miniAvatarEl.alt = `Avatar de ${nombre}`; }
+      if (modalAvatar)  { modalAvatar.src  = avatarUrl;  modalAvatar.alt  = `Avatar de ${nombre}`; }
+
+      // Muestra skeletons y suscríbete a los últimos 50 posts en tiempo real
+      showSkeletons();
+      startFeedListener();
+    } catch (err) {
+      console.error("Error cargando perfil:", err);
+      window.location.href = "/login.html";
+    }
+  });
+
+  // ===== Logout =====
+  logoutLink?.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+      isLoggingOut = true;
+      await signOut(auth);
+      // idToken sólo es necesario si hablas con tu backend; aquí lo limpiamos por orden.
+      localStorage.removeItem("idToken");
+    } catch (err) {
+      console.error("Error al cerrar sesión:", err);
+      alert("No se pudo cerrar sesión. Inténtalo de nuevo.");
+    }
+  });
+
+  // ===== Apertura/cierre del modal =====
+  function openModal() {
+    modal?.classList.remove("oculto");
+    modal?.setAttribute("aria-hidden", "false");
+    setTimeout(() => descEl?.focus(), 50);
+  }
+  function closeModal() {
+    modal?.classList.add("oculto");
+    modal?.setAttribute("aria-hidden", "true");
+  }
+  openComposer?.addEventListener("click", openModal);
+  miniFoto?.addEventListener("click", openModal);
+  closeBtn?.addEventListener("click", closeModal);
+  backdrop?.addEventListener("click", closeModal);
+  window.addEventListener("keydown", (e)=>{ if (e.key === "Escape" && !modal?.classList.contains("oculto")) closeModal(); });
+
+  // ===== Helpers de perfil (lectura puntual para autoría) =====
+  async function getPerfil(uid){
+    const ref = doc(db, "usuarios", uid);
+    const snap = await getDoc(ref);
+    return snap.exists() ? snap.data() : null;
+  }
+
+  // ===== Publicar acción =====
+  btn?.addEventListener("click", async () => {
+    try {
+      msg?.classList.remove("error");
+      if (msg) msg.textContent = "";
+      btn.disabled = true; btn.textContent = "Publicando…";
+
+      // seguridad UI: no hay user → mensaje
+      const user = auth.currentUser;
+      if (!user) { if (msg) msg.textContent = "Inicia sesión."; return; }
+
+      // valida datos mínimos
+      const descripcion = (descEl?.value || "").trim();
+      const categoria   = norm(catEl?.value || "limpieza"); // se guarda ya normalizada
+      const zona        = (zonaEl?.value || "").trim();
+      if (!descripcion) { if (msg) msg.textContent = "Escribe una descripción."; return; }
+
+      // Subir imágenes a Cloudinary (helper propio), devuelve arreglo {url, ...}
+      const media = await uploadImages(fileInput?.files || []); // si no hay, queda []
+
+      // info de autor (nombre/foto actuales)
+      const perfil = await getPerfil(user.uid);
+      const autorNombre = perfil?.nombre || user.displayName || "Usuario";
+      const autorFoto   = perfil?.fotoPerfil || null;
+
+      // Alta en colección /acciones (campos clave usados en paneles/feeds)
+      await addDoc(collection(db, "acciones"), {
+        autorUid: user.uid,
+        autorNombre,
+        autorFoto,
+        descripcion,
+        categoria,     // *** importante: en minúsculas para filtrar consistente
+        media,
+        zona: zona || null,
+        validado: false,
+        comentariosCount: 0,
+        creadoEl: serverTimestamp(),     // ordenamos por este campo
+        actualizadoEl: serverTimestamp()
+      });
+
+      // Limpia UI de composer y cierra modal
+      if (msg) msg.textContent = "¡Acción publicada! ✅";
+      if (descEl) descEl.value = "";
+      if (zonaEl) zonaEl.value = "";
+      if (fileInput) fileInput.value = "";
+      if (preview) preview.innerHTML = "";
+      if (hintFiles) { hintFiles.textContent = "Hasta 4 imágenes (JPG/PNG/WEBP)"; hintFiles.style.color = ""; }
+      if (charCount) charCount.textContent = "0/500";
+      closeModal();
+
+      // No recargamos nada: el onSnapshot actualizará el feed automáticamente
+    } catch (e) {
+      console.error(e);
+      if (msg) { msg.classList.add("error"); msg.textContent = "No se pudo publicar."; }
+    } finally {
+      btn.disabled = false; btn.textContent = "Publicar";
+    }
+  });
+
+  // ===== UI secundaria: contador y previsualización de imágenes =====
+  descEl?.addEventListener("input", () => {
+    const n = descEl.value.length;
+    if (charCount) charCount.textContent = `${n}/500`;
+  });
+
+  const MAX_FILES = 4;
+  fileInput?.addEventListener("change", () => {
+    if (!preview) return;
+    preview.innerHTML = "";
+    const files = Array.from(fileInput.files || []);
+    if (hintFiles) {
+      if (files.length > MAX_FILES) { hintFiles.textContent = `Máximo ${MAX_FILES} imágenes`; hintFiles.style.color = "#c0392b"; }
+      else { hintFiles.textContent = "Hasta 4 imágenes (JPG/PNG/WEBP)"; hintFiles.style.color = ""; }
+    }
+    // miniaturas client-side
+    files.slice(0, MAX_FILES).forEach((f, idx) => {
+      const url = URL.createObjectURL(f);
+      const card = document.createElement("div");
+      card.className = "thumb";
+      card.innerHTML = `
+        <img src="${url}" alt="preview ${idx+1}" />
+        <button class="rm" title="Quitar" data-i="${idx}">✕</button>
+      `;
+      preview.appendChild(card);
+    });
+  });
+  preview?.addEventListener("click", (e) => {
+    const btnRm = e.target.closest(".rm");
+    if (!btnRm) return;
+    // quita 1 archivo del FileList (usando DataTransfer)
+    const i = Number(btnRm.dataset.i);
+    const dt = new DataTransfer();
+    Array.from(fileInput.files).forEach((f, idx) => { if (idx !== i) dt.items.add(f); });
+    fileInput.files = dt.files;
+    fileInput.dispatchEvent(new Event("change"));
+  });
+
+  // ===== Reacciones (like) mediante subcolección /acciones/{id}/reacciones/{uid} =====
+  async function refreshReactionCount(accionId){
+    const countSpan = document.querySelector(`[data-like-count="${accionId}"]`);
+    if (!countSpan) return;
+    const q = collection(db, "acciones", accionId, "reacciones");
+    const agg = await getCountFromServer(q);
+    countSpan.textContent = String(agg.data().count || 0);
+  }
+  async function toggleReaction(accionId){
+    const me = auth.currentUser?.uid;
+    if (!me) throw new Error("No auth");
+    const reactRef = doc(db, "acciones", accionId, "reacciones", me);
+    const mySnap = await getDoc(reactRef);
+    if (mySnap.exists()) {
+      // si ya le diste like → quita
+      await deleteDoc(reactRef);
+      return -1;
+    } else {
+      // si no → registra like
+      await setDoc(reactRef, { uid: me, type: "like", createdAt: serverTimestamp() });
+      return +1;
+    }
+  }
+  async function initReactionUI(accionId){
+    const me = auth.currentUser?.uid;
+    if (!me) return;
+    const btn   = document.querySelector(`[data-like="${accionId}"]`);
+    const count = document.querySelector(`[data-like-count="${accionId}"]`);
+    if (!btn || !count) return;
+
+    // estado inicial (¿yo ya reaccioné?)
+    const myRef = doc(db, "acciones", accionId, "reacciones", me);
+    const mySnap = await getDoc(myRef);
+    if (mySnap.exists()) btn.classList.add("liked");
+
+    // toggle con UI optimista + ajuste posterior con conteo real
+    btn.onclick = async () => {
+      btn.disabled = true;
+      try {
+        const delta = await toggleReaction(accionId);
+        const n = parseInt(count.textContent || "0", 10) || 0;
+        count.textContent = String(Math.max(0, n + delta));
+        if (delta > 0) btn.classList.add("liked"); else btn.classList.remove("liked");
+        await refreshReactionCount(accionId);
+      } catch(e){
+        console.error("toggleReaction:", e);
+        alert("No se pudo registrar tu reacción.");
+      } finally {
+        btn.disabled = false;
+      }
+    };
+  }
+
+  // ===== Suscripción en tiempo real al feed (últimos 50) =====
+  function startFeedListener(){
+    if (stopFeed) stopFeed(); // si ya había una suscripción, la cerramos
+    const qRef = query(collection(db, "acciones"), orderBy("creadoEl", "desc"), limit(50));
+    // onSnapshot notifica en cada cambio (alta/edición/borrado)
+    stopFeed = onSnapshot(qRef, (snap) => {
+      FEED_CACHE = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      // normalizamos categorías por si hay documentos antiguos
+      FEED_CACHE.forEach(p => { if (p.categoria) p.categoria = norm(p.categoria); });
+      renderFeed();
+    });
+  }
+
+  // ===== Render del feed desde la caché + filtros UI (no re-consulta Firestore) =====
+  function renderFeed() {
+    if (!feedEl) return;
+    feedEl.innerHTML = "";
+
+    // valores actuales de filtros
+    const selected = norm(categorySelect?.value || "todas");
+    const qText    = norm(searchInput?.value || "");
+
+    const me = auth.currentUser?.uid || null;
+
+    // Filtrado local: categoría exacta y búsqueda por texto (desc/autor/zona)
+    const items = FEED_CACHE.filter(p => {
+      const cat   = norm(p.categoria);
+      const desc  = norm(p.descripcion);
+      const autor = norm(p.autorNombre);
+      const zona  = norm(p.zona);
+      const okCat  = selected === "todas" || cat === selected;
+      const okText = !qText || desc.includes(qText) || autor.includes(qText) || zona.includes(qText);
+      return okCat && okText;
+    });
+
+    // Mensaje de vacío si no hay coincidencias
+    if (items.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent = "No se encontraron publicaciones con ese filtro.";
+      feedEl.appendChild(empty);
+      return;
+    }
+
+    // Pintar cada card del feed
+    for (const p of items) {
+      const accionId = p.id;
+      const card = document.createElement("article");
+      card.className = "post";
+
+      // si hay media, pedimos un thumbnail desde Cloudinary (helper thumb)
+      const imgUrl = p.media?.[0]?.url ? thumb(p.media[0].url, { w:1100, h:700 }) : null;
+
+      // badge de validación (si los paneles de org/admin la establecen)
+      const aprobadoEl = p.validadoEl?.toDate?.() ? p.validadoEl.toDate().toLocaleString() : "";
+      const badge = p.validado
+        ? `<span class="badge-validado" title="Validado ${aprobadoEl}">✓ Validado</span>`
+        : `<span class="badge-pendiente">⏳ Pendiente</span>`;
+
+      // estructura de la publicación
+      card.innerHTML = `
+        <div class="post-head">
+          <img class="avatar" src="${p.autorFoto || '/assets/paciente.PNG'}" alt="">
+          <div>
+            <strong>${p.autorNombre || 'Usuario'}</strong>
+            <div class="post-meta">
+              <span class="subtitulo">${p.categoria || ''}${p.zona ? ' · ' + p.zona : ''}</span>
+              ${badge}
+            </div>
+          </div>
+        </div>
+        <div class="post-body">
+          <p>${(p.descripcion || '').replace(/\n/g,'<br>')}</p>
+          ${imgUrl ? `<img class="post-img" src="${imgUrl}" alt="media">` : ''}
+        </div>
+        <div class="post-actions">
+          <button class="like-btn" data-like="${accionId}">🍃 Ecoliked</button>
+          <span class="like-count" data-like-count="${accionId}">0</span>
+        </div>
+      `;
+
+      feedEl.appendChild(card);
+      // Inicializa UI de reacción solo si hay usuario logueado
+      if (me) initReactionUI(accionId);
+      // Recupera conteo real (agregado) desde la subcolección
+      refreshReactionCount(accionId).catch(console.error);
+      // micro-animación de entrada
+      requestAnimationFrame(() => card.classList.add("enter"));
+    }
+  }
+
+  // Filtros reactivos (no re-consultan; re-render desde la caché)
+  let tSearch;
+  categorySelect?.addEventListener("change", renderFeed);
+  searchInput?.addEventListener("input", () => {
+    clearTimeout(tSearch);
+    tSearch = setTimeout(renderFeed, 200); // "debounce" corto
+  });
+</script>
+
+</body>
+</html>

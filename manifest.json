@@ -1,0 +1,14 @@
+{
+  "name": "EcoLink",
+  "short_name": "EcoLink",
+  "description": "Plataforma para registrar acciones comunitarias y visualizar su impacto.",
+  "start_url": "/Inicio.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#e8f7f3",
+  "theme_color": "#177e69",
+  "icons": [
+    { "src": "/assets/fak.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

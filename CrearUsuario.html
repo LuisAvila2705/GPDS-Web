@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EcoLink - Crear Cuenta de Ciudadano</title>
-  <link rel="stylesheet" href="css/CrearUsuario.css">
-</head>
+  <meta charset="UTF-8" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="theme-color" content="#177e69" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoLink - Crear Usuario</title>
 
+  <!-- RUTA ABSOLUTA -->
+  <link rel="stylesheet" href="/css/CrearUsuario.css" />
+
+  <!-- Importante: el JS es módulo y ruta absoluta -->
+  <script type="module" src="/js/CrearUsuario.js" defer></script>
+</head>
 <body>
 
   <!-- Encabezado -->
@@ -15,8 +20,8 @@
     <nav class="navbar">
       <div class="spacer"></div>
       <div class="logo">
-        <a href="Index.html">
-          <img src="assets/logo.png" class="logo-img" alt="Logo Humble Hospital">
+        <a href="/Inicio.html">
+          <img src="/assets/logo.png" class="logo-img" alt="EcoLink Logo">
         </a>
       </div>
       <div class="spacer"></div>
@@ -25,120 +30,148 @@
 
   <!-- Ruta de navegación -->
   <nav class="breadcrumb">
-    <a href="Index.html">Inicio</a> &gt;
-    <a href="login.html">Acceder a mi cuenta</a> &gt;
-    <span>Crear cuenta de Ciudadano</span>
+    <a href="/Inicio.html">Inicio</a> &gt;
+    <a href="/login.html">Acceder a mi cuenta</a> &gt;
+    <span>Crear cuenta</span>
   </nav>
 
   <!-- Formulario -->
   <section class="formulario-creacion">
-    <h2>Registrarse Como Ciudadano</h2>
+    <h2>Crear mi cuenta</h2>
 
-    <form class="registro-form" id="registroForm">
-      <label class="subtitulo">Datos Personales:</label>
+    <!-- Form con validaciones -->
+    <form class="registro-form" id="registroForm" novalidate>
+      <label class="subtitulo">Datos básicos</label>
 
+      <input id="nombre" name="nombre" type="text"
+             placeholder="Nombre completo"
+             pattern="^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,60}$"
+             title="Solo letras y espacios, 2 a 60 caracteres" required />
+      <small id="err-nombre" class="err" aria-live="polite"></small>
+
+      <input id="email" name="email" type="email"
+             placeholder="Correo electrónico" required />
+      <small id="err-email" class="err" aria-live="polite"></small>
+
+      <input id="email2" name="email2" type="email"
+             placeholder="Repetir correo" required />
+      <small id="err-email2" class="err" aria-live="polite"></small>
+
+      <small>La contraseña debe tener mínimo 10 caracteres, con mayúscula, minúscula, número y carácter especial.</small>
+      <input id="password" name="password" type="password"
+             placeholder="Crea tu contraseña"
+             autocomplete="new-password" required />
+      <!-- Medidor de fuerza -->
+      <div id="pwd-meter" class="pwd-meter" aria-hidden="true">
+        <div id="pwd-bar" class="pwd-bar"></div>
+      </div>
+      <small id="err-password" class="err" aria-live="polite"></small>
+
+      <!-- Teléfono (obligatorio, 10 dígitos MX) -->
+      <label class="subtitulo" for="telefono">Teléfono (10 dígitos)</label>
       <input
-        name="nombre"
-        type="text"
-        placeholder="Nombres"
-        pattern="^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,50}$"
-        title="Solo letras, entre 2 y 50 caracteres"
-        required
-      >
-
-      <input
-        name="apellido"
-        type="text"
-        placeholder="Apellidos"
-        pattern="^[A-Za-zÁÉÍÓÚáéíóúñÑ ]{2,50}$"
-        title="Solo letras, entre 2 y 50 caracteres"
-        required
-      >
-
-      <input
+        id="telefono"
         name="telefono"
         type="tel"
-        placeholder="Teléfono"
+        placeholder="Ej. 8123456789"
+        inputmode="numeric"
+        maxlength="14"
         pattern="^[0-9]{10}$"
-        title="Debe tener exactamente 10 dígitos"
+        title="Debe tener exactamente 10 dígitos (ej. 8123456789)"
         required
-      >
-      <small>Te enviaremos un SMS para confirmar tu solicitud de cita</small>
+      />
 
-      <input
-        type="email"
-        name="correo"
-        placeholder="Correo Electrónico"
-        required
-      >
+      <!-- Ciudad / Municipio de Nuevo León (obligatorio) -->
+      <label class="subtitulo" for="ciudad">Municipio (Nuevo León)</label>
+      <select id="ciudad" name="ciudad" required>
+        <option value="" disabled selected>Selecciona tu municipio</option>
+        <option>Abasolo</option>
+        <option>Agualeguas</option>
+        <option>Los Aldamas</option>
+        <option>Allende</option>
+        <option>Anáhuac</option>
+        <option>Apodaca</option>
+        <option>Aramberri</option>
+        <option>Bustamante</option>
+        <option>Cadereyta Jiménez</option>
+        <option>El Carmen</option>
+        <option>Cerralvo</option>
+        <option>China</option>
+        <option>Ciénega de Flores</option>
+        <option>Doctor Arroyo</option>
+        <option>Doctor Coss</option>
+        <option>Doctor González</option>
+        <option>Galeana</option>
+        <option>García</option>
+        <option>San Pedro Garza García</option>
+        <option>General Bravo</option>
+        <option>General Escobedo</option>
+        <option>General Terán</option>
+        <option>General Treviño</option>
+        <option>General Zaragoza</option>
+        <option>General Zuazua</option>
+        <option>Guadalupe</option>
+        <option>Los Herreras</option>
+        <option>Higueras</option>
+        <option>Hidalgo</option>
+        <option>Hualahuises</option>
+        <option>Iturbide</option>
+        <option>Juárez</option>
+        <option>Lampazos de Naranjo</option>
+        <option>Linares</option>
+        <option>Marín</option>
+        <option>Melchor Ocampo</option>
+        <option>Mier y Noriega</option>
+        <option>Mina</option>
+        <option>Montemorelos</option>
+        <option>Monterrey</option>
+        <option>Parás</option>
+        <option>Pesquería</option>
+        <option>Los Ramones</option>
+        <option>Rayones</option>
+        <option>Sabinas Hidalgo</option>
+        <option>Salinas Victoria</option>
+        <option>San Nicolás de los Garza</option>
+        <option>Santa Catarina</option>
+        <option>Santiago</option>
+        <option>Vallecillo</option>
+        <option>Villaldama</option>
+      </select>
 
-      <input
-        type="email"
-        name="correoConfirm"
-        placeholder="Repetir Correo"
-        required
-      >
-
-      <small>
-        La contraseña debe tener al menos 8 caracteres, una mayúscula, una
-        minúscula, un número y un carácter especial.
-      </small>
-      <input
-        type="password"
-        name="contraseña"
-        placeholder="Crea tu contraseña"
-        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$"
-        title="Mínimo 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial"
-        required
-      >
-      <small id="errorPassword" style="color:red; display:none;"></small>
-      <small>Lo usaremos para contactarte en caso de que sea necesario</small>
-
-      <input
-        type="text"
-        name="direccion"
-        placeholder="Dirección"
-        minlength="5"
-        maxlength="100"
-      >
-
-      <label class="subtitulo" for="fechaNacimiento">Fecha de Nacimiento</label>
-      <input
-        name="FechaNacimiento"
-        type="date"
-        class="input-fecha"
-        id="fechaNacimiento"
-        min="1930-01-01"
-        required
-      >
-      <small id="edadMensaje" style="display:block; margin-bottom:10px;"></small>
-
-      <label class="subtitulo">Datos Físicos:</label>
-      <div class="genero">
-        <label>
-          <input type="radio" name="genero" value="masculino" required> Masculino
-        </label>
-        <label>
-          <input type="radio" name="genero" value="femenino" required> Femenino
-        </label>
+      <label class="subtitulo" for="foto">Foto de perfil (recomendable)</label>
+      <div class="file">
+        <input class="input-file" type="file" id="foto" accept="image/*" />
+        <label for="foto" class="fake">📷 Elegir foto</label>
+        <span class="hint" id="hintFoto">JPG/PNG · máx. 4 MB</span>
+      </div>
+      <div id="fotoPreviewWrap" class="preview" style="max-width:140px;">
+        <img id="fotoPreview" alt="" style="display:none;border-radius:12px;border:1px solid #e6efec;">
       </div>
 
+      <!-- rol base -->
+      <input type="hidden" id="rol" name="rol" value="ciudadano" />
+
       <label class="terminos">
-        <input type="checkbox" id="confirmMayor" name="confirmMayor">
-        Confirmo que soy mayor de 18 años, además de aceptar la política de
-        privacidad junto con los términos y condiciones de uso.
+        <input type="checkbox" id="acepta" required />
+        Acepto la política de privacidad y los términos de uso.
       </label>
+      <small id="err-acepta" class="err" aria-live="polite"></small>
 
-      <!-- Campo oculto para enviar el estado real de confirmMayor -->
-      <input type="hidden" name="confirmMayorHidden" id="confirmMayorHidden" value="false">
-
-      <button type="submit" class="btn-crear-cuenta" id="submitBtn" disabled>
-        Crear Mi Cuenta
-      </button>
+      <button type="submit" class="btn-crear-cuenta" id="btnCrear" disabled>Crear mi cuenta</button>
+      <p id="msg" aria-live="polite"></p>
     </form>
   </section>
 
-  <script src="js/RegisterFirebase.js"></script>
+  <!-- Registro del Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker
+          .register('/serviceWorker.js')
+          .then(reg => console.log('SW registrado', reg.scope))
+          .catch(err => console.error('Error SW', err));
+      });
+    }
+  </script>
 </body>
-
 </html>

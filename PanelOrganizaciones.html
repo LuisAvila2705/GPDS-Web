@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EcoLink – Panel Organizaciones</title>
+  <link rel="stylesheet" href="/css/DashboardPrincipal.css"/>
+  <script type="module" src="/js/panelOrg.js" defer></script>
+</head>
+<body>
+<header class="navbar">
+  <div class="navbar-left">
+    <img src="/assets/logo.png" class="logo-img" alt="EcoLink"/>
+    <span class="app-title">Panel – Organizaciones</span>
+  </div>
+  <div class="navbar-right">
+    <a href="/DashboardPrincipal.html" class="user-menu-btn">Ciudadanos</a>
+  </div>
+</header>
+
+<main class="dashboard-panel">
+
+  <section class="card" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <div>
+      <label>Corte:</label>
+      <select id="periodo">
+        <option value="7">Últimos 7 días</option>
+        <option value="30" selected>Últimos 30 días</option>
+        <option value="90">Últimos 90 días</option>
+        <option value="365">Último año</option>
+      </select>
+    </div>
+    <div>
+      <label>Zona a ubicar:</label>
+      <input id="filtroZona" placeholder="(todos) Ej. Monterrey"/>
+    </div>
+    <div>
+      <label>Categoría:</label>
+      <select id="filtroCategoria">
+        <option value="">Todas</option>
+        <option value="limpieza">Limpieza</option>
+        <option value="reciclaje">Reciclaje</option>
+        <option value="taller">Taller</option>
+        <option value="donacion">Donación</option>
+      </select>
+    </div>
+    <button id="btnAplicar">Aplicar</button>
+    <button id="btnExport">Exportar CSV</button>
+  </section>
+
+  <!-- KPIs -->
+  <section class="grid3">
+    <div class="card kpi"><h4>Acciones totales</h4><div id="kpiTotal">—</div></div>
+    <div class="card kpi"><h4>Acciones validadas</h4><div id="kpiValidadas">—</div></div>
+    <div class="card kpi"><h4>Por categoría</h4><div id="kpiCategorias">—</div></div>
+  </section>
+
+  <!-- Líderes -->
+  <section class="card">
+    <h3>Líderes (más acciones en el período)</h3>
+    <ol id="listaLideres"></ol>
+  </section>
+
+  <!-- Tabla de acciones -->
+  <section class="card">
+    <h3>Acciones (últimas)</h3>
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Fecha</th><th>Autor</th><th>Categoría</th><th>Zona</th><th>Estado</th><th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="tablaAcciones"></tbody>
+    </table>
+    <div style="margin-top:8px;display:flex;gap:8px">
+      <button id="btnMas">Cargar más</button>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
