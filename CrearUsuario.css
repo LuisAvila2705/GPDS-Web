@@ -1,0 +1,189 @@
+/* ----------- ESTILO GENERAL ----------- */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: linear-gradient(to bottom, #f0fdfc, #e6f5f3);
+  color: #333;
+}
+
+/* ----------- ENCABEZADO ----------- */
+header {
+  background-color: #ccebe7;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 25px;
+}
+
+.navbar {
+  background: linear-gradient(to bottom, #e6f5f3, #f0fdfc); /* Suave difuminado */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.logo-img {
+  height: 80px;
+  object-fit: contain;
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* ----------- BREADCRUMB ----------- */
+.breadcrumb {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #91c5c5;
+  padding: 0.3rem 1rem;
+  background-color: #f3f8f8;
+  border-radius: 6px;
+  margin: 0.5rem auto;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.breadcrumb a {
+  color: #1e8553;
+  text-decoration: none;
+  margin: 0 0.25rem;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #28a96a;
+}
+
+/* ----------- FORMULARIO DE CREACIÓN ----------- */
+.formulario-creacion {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.formulario-creacion h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #023c40;
+}
+
+.registro-form {
+  background-color: #f9fdfd;
+  padding: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+/* Inputs generales */
+.registro-form input[type="text"],
+.registro-form input[type="tel"],
+.registro-form input[type="email"],
+.registro-form input[type="number"],
+.input-fecha {
+  width: 90%;
+  padding: 10px;
+  margin: 8px auto;
+  border: none;
+  background-color: #d4f6f3;
+  border-radius: 6px;
+  display: block;
+  font-family: inherit;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.input-fecha {
+  cursor: pointer;
+}
+
+.registro-form small {
+  font-size: 0.8rem;
+  color: #555;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* Subtítulos */
+.subtitulo {
+  display: block;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #03444b;
+}
+
+/* Género */
+.genero {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.genero label {
+  flex: 1;
+  background-color: #d4f6f3;
+  padding: 8px;
+  border-radius: 6px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.genero input {
+  margin-right: 5px;
+}
+
+/* Términos */
+.terminos {
+  display: block;
+  font-size: 0.9rem;
+  text-align: left;
+  margin: 1.5rem 0;
+}
+
+/* Botón */
+.btn-crear-cuenta {
+  background-color: #2e7d6f;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  width: 95%;
+}
+
+.btn-crear-cuenta:hover {
+  background-color: #1f5d52;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .genero {
+    flex-direction: column;
+  }
+}
+
+
+.pwd-meter{height:8px;background:#e2e8f0;border-radius:6px;margin-top:6px;overflow:hidden}
+.pwd-bar{height:100%;width:0%;background:#ef4444;transition:width .25s ease, background .25s ease;border-radius:6px}
+.err{color:#b91c1c;min-height:1.1em;display:block}
+.ok{border-color:#16a34a!important}
+.error{border-color:#b91c1c!important}
+

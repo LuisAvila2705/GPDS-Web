@@ -1,0 +1,248 @@
+/* ============ EcoLink – Admin.css (tema verde unificado) ============ */
+:root{
+  --brand: #177e69;
+  --brand-600:#146c59;
+  --brand-50:#e6f7f2;
+  --ink:#102820;
+  --muted:#5b6b64;
+  --bg:#f5f8f6;
+  --card:#ffffff;
+  --line:#e5eeea;
+  --ring: 0 0 0 2px rgba(23,126,105,.18);
+  --radius: 12px;
+  --shadow: 0 2px 5px rgba(0,0,0,.08);
+  --shadow-lg: 0 8px 20px rgba(16,40,32,.08);
+  --danger:#c0392b;
+  --danger-600:#a02f24;
+  --ok:#2c974b;
+  --ok-600:#1e7a3a;
+  --chip:#0d332a;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  margin:0;
+}
+
+/* -------- Header card (tu encabezado) -------- */
+header.card{
+  max-width:1150px;
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+header.card h1{
+  font-size:1.15rem;
+  font-weight:700;
+  color:var(--brand);
+}
+header.card img{display:block}
+
+/* Botón “Ciudadanos” del header */
+header .toolbar-btn{
+  background:var(--brand);
+  color:#fff;
+  border-radius:10px;
+  padding:8px 14px;
+  box-shadow:0 1px 0 rgba(0,0,0,.04);
+  transition:transform .08s ease, background .15s ease;
+}
+header .toolbar-btn:hover{ background:var(--brand-600); transform:translateY(-1px) }
+header .toolbar-btn:active{ transform:translateY(0) }
+header .toolbar-btn:focus-visible{ outline:none; box-shadow:var(--ring) }
+
+/* -------- Layout principal -------- */
+main{
+  max-width:1150px;
+  margin:0 auto 80px;
+  padding:0 16px;
+}
+
+/* -------- Tarjeta genérica -------- */
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:18px 18px;
+  margin:16px 0;
+  transition: box-shadow .2s ease, transform .2s ease;
+}
+.card:hover{ box-shadow:var(--shadow-lg); transform:translateY(-2px) }
+.card h2{
+  margin: 0 0 10px;
+  color:var(--chip);
+  font-size:1.05rem;
+  font-weight:800;
+}
+
+/* -------- Toolbar (buscador y filtros) -------- */
+.toolbar{
+  display:grid;
+  grid-template-columns: 1fr 170px 220px auto;
+  gap:10px;
+}
+@media (max-width: 860px){
+  .toolbar{ grid-template-columns: 1fr 1fr }
+}
+@media (max-width: 520px){
+  .toolbar{ grid-template-columns: 1fr }
+}
+
+input[type="search"],
+input[type="text"],
+input[placeholder],
+select{
+  width:100%;
+  background:#fff;
+  border:1px solid #cfded8;
+  border-radius:10px;
+  padding:10px 12px;
+  font-size:.95rem;
+  color:var(--ink);
+  transition:border-color .15s ease, box-shadow .15s ease, transform .06s ease;
+}
+input::placeholder{ color:#94a5a0 }
+select{ appearance:none; background-image:linear-gradient(45deg,transparent 50%,#7aa89f 0),linear-gradient(135deg,#7aa89f 50%,transparent 0); background-position: calc(100% - 18px) calc(1.05em), calc(100% - 12px) calc(1.05em); background-size:6px 6px, 6px 6px; background-repeat:no-repeat }
+input:focus, select:focus{ outline:none; border-color:var(--brand); box-shadow:var(--ring) }
+input:active, select:active{ transform:scale(.995) }
+
+/* Botón buscar */
+#btnBuscar{
+  align-self:stretch;
+  background:var(--brand);
+  color:#fff;
+  border:none;
+  border-radius:10px;
+  padding:0 16px;
+  font-weight:700;
+  cursor:pointer;
+  transition: background .15s ease, transform .06s ease;
+}
+#btnBuscar:hover{ background:var(--brand-600) }
+#btnBuscar:active{ transform:scale(.995) }
+#btnBuscar:focus-visible{ outline:none; box-shadow:var(--ring) }
+
+/* Tip de ayuda bajo la toolbar */
+.muted{
+  color:var(--muted);
+  font-size:.9rem;
+}
+
+/* -------- Tabla -------- */
+.table-wrap{
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:auto;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:.92rem;
+  min-width:780px;
+}
+thead{
+  background:var(--brand-50);
+  position:sticky; top:0; z-index:1;
+}
+th, td{
+  padding:12px 10px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  white-space:nowrap;
+}
+th{
+  color:var(--chip);
+  font-weight:700;
+  letter-spacing:.2px;
+}
+tbody tr:hover{ background:#f3faf8 }
+
+/* Select de rol dentro de la tabla */
+tbody select[data-role]{
+  padding:7px 10px;
+  border-radius:8px;
+  border:1px solid #d8e7e2;
+  font-size:.9rem;
+}
+tbody select[data-role]:focus{ outline:none; border-color:var(--brand); box-shadow:var(--ring) }
+
+/* Acciones (bloquear/activar) */
+tbody button[data-toggle]{
+  border:none;
+  border-radius:8px;
+  padding:7px 12px;
+  font-size:.88rem;
+  font-weight:700;
+  cursor:pointer;
+  transition: transform .06s ease, filter .12s ease;
+  color:#fff;
+}
+/* estado actual en data-current */
+tbody button[data-toggle][data-current="activo"]{ background:var(--danger) }
+tbody button[data-toggle][data-current="bloqueado"]{ background:var(--ok) }
+tbody button[data-toggle]:hover{ filter:brightness(.95) }
+tbody button[data-toggle]:active{ transform:scale(.98) }
+tbody button[data-toggle]:focus-visible{ outline:none; box-shadow:var(--ring) }
+
+/* -------- Paginación -------- */
+.pager{
+  display:flex;
+  gap:8px;
+  justify-content:flex-end;
+  margin-top:10px;
+}
+.pager button,
+.pager [data-prev],
+.pager [data-next],
+#btnPrev,#btnNext{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid #dfe9e5;
+  padding:8px 12px;
+  border-radius:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .12s ease, transform .06s ease, border-color .12s ease;
+}
+.pager button:hover{ background:#f3faf8; border-color:#cfe0da }
+.pager button:active{ transform:scale(.98) }
+.pager button:focus-visible{ outline:none; box-shadow:var(--ring) }
+.pager button:disabled{
+  opacity:.55; cursor:not-allowed; background:#f7faf9;
+}
+
+/* -------- Notas -------- */
+.card ul.muted{ padding-left:18px; margin:8px 0 0 }
+.card ul.muted li{ margin:6px 0 }
+
+/* -------- Toast (feedback rápido opcional) -------- */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--brand);
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  box-shadow:var(--shadow-lg);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+  z-index:50;
+  font-weight:700;
+}
+.toast.show{ opacity:1; transform:translateX(-50%) translateY(0) }
+
+/* -------- Pequeños detalles -------- */
+code{
+  background:#f3faf8;
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:2px 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}

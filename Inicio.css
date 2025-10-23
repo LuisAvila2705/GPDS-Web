@@ -1,0 +1,444 @@
+/*Inicio*/
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #f6f9f8;
+  color: #333;
+}
+
+/*Encabezado*/
+header {
+  background-color: #ccebe7;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 25px;
+}
+
+.navbar {
+  background: linear-gradient(to bottom, #e6f5f3, #f0fdfc); /* Suave difuminado */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem; /* Espaciado entre los links */
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #2d2d2d;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #00a896; /* Tono que combina con el logo */
+}
+
+.login-button {
+  background-color: #6fd3a9;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #4fbf91;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.logo-img {
+  height: 80px;
+}
+
+
+
+/*RUTA DE NAVEGACION*/
+.breadcrumb {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem; /* Aumentamos la letra */
+  color: #666;
+  padding: 0.3rem 1rem; /* Reducimos el padding */
+  background-color: #f4f7f5;
+  border-radius: 6px;
+  margin: 0.5rem auto;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.breadcrumb a {
+  color: #1e8553;
+  text-decoration: none;
+  margin: 0 0.25rem;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #28a96a;
+}
+
+
+/*Como generar una cita*/
+.hero {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(to bottom, #e6f1ee, #ffffff);
+}
+
+.steps-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.step {
+  background-color: #d6f5ee;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: relative;
+}
+
+.step-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.step-number {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #2e7d6f;
+}
+
+.step-title {
+  font-size: 1rem;
+  color: #333;
+}
+
+/*Los 3 botones*/
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.filter-btn {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.filter-btn.active {
+  background-color: #84c8a4;
+  color: white;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  background: #f9fcfd;
+  font-family: 'Poppins', sans-serif;
+}
+
+.stat-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0e8f9d, #083c5e);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  animation: popIn 1s ease-out forwards;
+  opacity: 0;
+}
+
+.stats-text {
+  font-size: 1.1rem;
+  color: #083c5e;
+  max-width: 600px;
+  text-align: center;
+  animation: fadeInUp 1.5s ease-out forwards;
+  opacity: 0;
+}
+
+/*Vida de a la animacion del circulo*/
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+
+/*Los 3 botones de Doctor,Especialidad,Horarios*/
+.tab-btn {
+  background-color: #5b9695; /* verde principal */
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-self: center;
+}
+
+.tab-btn:hover {
+  background-color: #a8dedd; /* verde más claro al hacer hover */
+  transform: translateY(-2px);
+}
+
+.tab-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 169, 106, 0.3);
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 3rem auto; /* mayor separación vertical */
+}
+
+
+/*Como contactar tras agendar*/
+.contact-section {
+  background: linear-gradient(to bottom, #e6f8f5, #f5fdfc);
+  padding: 2rem;
+  border-radius: 1rem;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.contact-step {
+  background-color: #d4f3ec;
+  color: #333;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  font-size: 1rem;
+}
+
+.contact-step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.contact-step h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-step p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+
+/*Pie de pagina*/
+.faq-section {
+  background: linear-gradient(to bottom, #e6f8f5, #f5fdfc);
+  padding: 2rem;
+  border-radius: 1rem;
+  font-family: 'Poppins', sans-serif;
+  max-width: 800px;
+  margin: auto;
+}
+
+.faq-item {
+  background-color: #d4f3ec;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.faq-question {
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #222;
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1rem;
+  display: none;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+.faq-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg); /* transforma ➕ en ➖ si usas un + ícono */
+}
+
+
+.quienes-somos {
+  padding: 4rem 2rem;
+  background: linear-gradient(to right, #a8dedd, #ffffff);
+  font-family: 'Poppins', sans-serif;
+}
+
+.quienes-somos .contenido {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+}
+
+.quienes-somos .texto {
+  flex: 1;
+}
+
+.quienes-somos h2 {
+  font-size: 2rem;
+  color: #083c5e;
+  margin-bottom: 1rem;
+}
+
+.quienes-somos p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.quienes-somos .imagen {
+  flex: 1;
+  text-align: center;
+}
+
+.quienes-somos .imagen img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contacto {
+  background-color: #e7f2f8;
+  padding: 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.contenedor-contacto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: space-between;
+}
+
+.info-contacto, .formulario-contacto {
+  flex: 1;
+  min-width: 150px;
+}
+
+.info-contacto h2, .formulario-contacto h3 {
+  color: #083c5e;
+  margin-bottom: 1rem;
+}
+
+.info-contacto p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.formulario-contacto form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario-contacto input,
+.formulario-contacto textarea {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.formulario-contacto button {
+  padding: 0.75rem;
+  background-color: #0e8f9d;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.formulario-contacto button:hover {
+  background-color: #0a6f7c;
+}
+
+.pop {
+  animation: popIn 0.8s ease-out forwards;
+}
+
+.fade {
+  animation: fadeInUp 0.8s ease-out forwards;
+}

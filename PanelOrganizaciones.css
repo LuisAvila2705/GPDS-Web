@@ -1,0 +1,184 @@
+/* ======= Panel Organizaciones / Gobiernos ======= */
+body {
+  font-family: "Inter", sans-serif;
+  background: #f5f8f6;
+  color: #102820;
+  margin: 0;
+  padding: 0;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #177e69;
+  color: white;
+  padding: 10px 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo-img {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: white;
+}
+.app-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.navbar-right .user-menu-btn {
+  background: white;
+  color: #177e69;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+.navbar-right .user-menu-btn:hover {
+  background: #e6f7f2;
+}
+
+/* Layout base */
+.dashboard-panel {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+
+/* Tarjetas generales */
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* ===== KPIs ===== */
+.grid3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+.kpi h4 {
+  margin: 0 0 8px 0;
+  color: #177e69;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.kpi div {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #0d332a;
+  text-align: center;
+}
+
+/* ===== Filtros ===== */
+select, input[type="text"], button {
+  border-radius: 6px;
+  border: 1px solid #cfded8;
+  padding: 8px 10px;
+  font-size: 0.95rem;
+}
+select:focus, input[type="text"]:focus {
+  outline: none;
+  border-color: #177e69;
+  box-shadow: 0 0 0 2px rgba(23,126,105,0.15);
+}
+button {
+  background: #177e69;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+button:hover {
+  background: #146c59;
+}
+
+/* ===== Tabla ===== */
+.tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+.tabla thead {
+  background: #e6f7f2;
+}
+.tabla th, .tabla td {
+  padding: 10px 8px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+.tabla th {
+  color: #0d332a;
+  font-weight: 600;
+}
+.tabla tr:hover {
+  background: #f3faf8;
+}
+
+/* Botones en tabla */
+.tabla button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+.tabla button[data-approve] {
+  background: #2c974b;
+}
+.tabla button[data-approve]:hover {
+  background: #1e7a3a;
+}
+
+/* ===== Lista líderes ===== */
+#listaLideres {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+#listaLideres li {
+  margin-bottom: 6px;
+  color: #0f3c30;
+}
+#listaLideres li::marker {
+  color: #177e69;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .grid3 {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 15px;
+  }
+  .tabla th, .tabla td {
+    font-size: 0.85rem;
+  }
+}
+
+/* ===== Transiciones suaves ===== */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s;
+}

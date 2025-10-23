@@ -1,0 +1,486 @@
+/*Inicio*/
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background-color: #e9f0ee;
+  color: #333;
+
+    background: linear-gradient(to bottom, #f0fdfc, #e6f5f3);
+
+}
+
+/*Inicio de Encabezado*/
+header {
+  background-color: #ccebe7;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 25px;
+}
+
+.navbar {
+  background: linear-gradient(to bottom, #e6f5f3, #f0fdfc); /* Suave difuminado */
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil */
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+.logo-img {
+  height: 80px;
+  object-fit: contain;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/*Fin de Encabezado*/
+
+
+/*INICIO RUTA DE NAVEGACION*/
+.breadcrumb {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem; /* Aumentamos la letra */
+  color: #91c5c5;
+  padding: 0.3rem 1rem; /* Reducimos el padding */
+  background-color: #f3f8f8;
+  border-radius: 6px;
+  margin: 0.5rem auto;
+  max-width: 1200px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.breadcrumb a {
+  color: #1e8553;
+  text-decoration: none;
+  margin: 0 0.25rem;
+  transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+  color: #28a96a;
+}
+/*FIN RUTA DE NAVEGACION*/
+
+
+/*INICIO Registroz de inicio de sesion*/
+.login-panel {
+  background: #f9fcfc;
+  max-width: 450px;
+  margin: 3rem auto;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  border: 1px solid #ccebe7;
+}
+
+.role-selector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.role-btn {
+  padding: 0.7rem 1.2rem;
+  border-radius: 8px;
+  border: 1px solid #ccebe7;
+  background-color: #2e7d6f;
+  color: #ffffff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.role-btn:hover {
+  background-color: #ccebe7;
+}
+
+.role-btn.active {
+  background-color: #69b4a9 ;
+  color: white;
+  border: 1px solid #74afa6;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.login-form input {
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ccebe7;
+  background-color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #004d40;
+}
+
+.login-form input:focus {
+  outline: none;
+  border-color: #1e8553;
+  box-shadow: 0 0 5px rgba(30, 133, 83, 0.2);
+}
+
+.login-form button {
+  background-color: #2e7d6f;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.login-form button:hover {
+  background-color: #1f5d52;
+}
+
+.login-form.hidden {
+  display: none;
+}
+/*FIN Registro de inicio de sesion*/
+
+
+/*Inicio de los beneficios*/
+.benefits {
+      background: #f3f8f8;
+  text-align: center;
+  padding: 2rem;
+}
+
+.benefits h3 {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  color: #023c40;
+}
+
+/* Grid centrado y contenido más angosto */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  gap: 20px;
+  max-width: 1220px;
+  margin: 0 auto 2rem auto;
+}
+
+.benefit-item {
+  background: #d4f6f3;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  width: 90%;
+  margin: 0 auto;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.benefit-item.expanded {
+  height: 220px;
+  background-color: #b2ece8;
+}
+
+.benefit-item h4 {
+  margin: 0 0 10px 0;
+  color: #023c40;
+  font-size: 18px;
+}
+
+.benefit-description {
+  font-size: 15px;
+  color: #03444b;
+  display: none;
+  margin-bottom: 10px;
+}
+
+.benefit-item.expanded .benefit-description {
+  display: block;
+}
+
+.toggle-btn {
+  align-self: center;
+  background-color: transparent;
+  border: none;
+  color: #026469;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.toggle-btn:hover {
+  color: #014244;
+}
+
+/* Estilo botón Crear mi cuenta */
+.crear-cuenta {
+  background-color: #2e7d6f;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.crear-cuenta:hover {
+    background-color: #1f5d52;
+
+}
+
+/*Fin de beneeficios*/
+
+.contact-section {
+  background: linear-gradient(to bottom, #e6f8f5, #f5fdfc);
+  padding: 2rem;
+  border-radius: 1rem;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+}
+
+.contact-step {
+  background-color: #d4f3ec;
+  color: #333;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+  font-size: 1rem;
+}
+
+.contact-step:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.contact-step h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.contact-step p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+
+.faq-section {
+  background: linear-gradient(to bottom, #e6f8f5, #f5fdfc);
+  padding: 2rem;
+  border-radius: 1rem;
+  font-family: 'Poppins', sans-serif;
+  max-width: 800px;
+  margin: auto;
+}
+
+.faq-item {
+  background-color: #d4f3ec;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.faq-question {
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #222;
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1rem;
+  display: none;
+  font-size: 0.95rem;
+  color: #444;
+}
+
+.faq-item.open .faq-answer {
+  display: block;
+}
+
+.faq-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-icon {
+  transform: rotate(45deg); /* transforma ➕ en ➖ si usas un + ícono */
+}
+
+
+.quienes-somos {
+  padding: 4rem 2rem;
+  background: linear-gradient(to right, #a8dedd, #ffffff);
+  font-family: 'Poppins', sans-serif;
+}
+
+.quienes-somos .contenido {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+}
+
+.quienes-somos .texto {
+  flex: 1;
+}
+
+.quienes-somos h2 {
+  font-size: 2rem;
+  color: #083c5e;
+  margin-bottom: 1rem;
+}
+
+.quienes-somos p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.quienes-somos .imagen {
+  flex: 1;
+  text-align: center;
+}
+
+.quienes-somos .imagen img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.contacto {
+  background-color: #e7f2f8;
+  padding: 4rem 2rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.contenedor-contacto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  justify-content: space-between;
+}
+
+.info-contacto, .formulario-contacto {
+  flex: 1;
+  min-width: 150px;
+}
+
+.info-contacto h2, .formulario-contacto h3 {
+  color: #083c5e;
+  margin-bottom: 1rem;
+}
+
+.info-contacto p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.formulario-contacto form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formulario-contacto input,
+.formulario-contacto textarea {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+}
+
+.formulario-contacto button {
+  padding: 0.75rem;
+  background-color: #0e8f9d;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.formulario-contacto button:hover {
+  background-color: #0a6f7c;
+}
+
+.pop {
+  animation: popIn 0.8s ease-out forwards;
+}
+
+.fade {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+
+
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 3rem auto; /* mayor separación vertical */
+}
+
+.tab-btn {
+  background-color: #5b9695; /* verde principal */
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-self: center;
+}
+
+.tab-btn:hover {
+  background-color: #a8dedd; /* verde más claro al hacer hover */
+  transform: translateY(-2px);
+}
+
+.tab-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(40, 169, 106, 0.3);
+}
